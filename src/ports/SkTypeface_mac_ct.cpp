@@ -905,6 +905,20 @@ size_t SkTypeface_Mac::onGetTableData(SkFontTableTag tag, size_t offset,
     return length;
 }
 
+void* SkTypeface_Mac::onGetUserTableData(SkFontTableTag tag) const {
+    SkUniqueCFRef<CFDataRef> srcData = copy_table_from_font(fFontRef.get(), tag);
+    if (!srcData) {
+        return nullptr;
+    }
+
+    size_t srcSize = CFDataGetLength(srcData.get());
+    if (srcSize <= 0) {
+        return nullptr;
+    }
+
+    return (void*)CFDataGetBytePtr(srcData.get());
+}
+
 sk_sp<SkData> SkTypeface_Mac::onCopyTableData(SkFontTableTag tag) const {
     SkUniqueCFRef<CFDataRef> srcData = copy_table_from_font(fFontRef.get(), tag);
     if (!srcData) {

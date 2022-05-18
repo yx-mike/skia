@@ -91,6 +91,8 @@ public:
     const OpszVariation fOpszVariation;
     const bool fHasColorGlyphs;
 
+    void* getUserData(SkFontTableTag tag);
+
 protected:
     int onGetUPEM() const override;
     std::unique_ptr<SkStreamAsset> onOpenStream(int* ttcIndex) const override;
@@ -101,6 +103,7 @@ protected:
     SkTypeface::LocalizedStrings* onCreateFamilyNameIterator() const override;
     int onGetTableTags(SkFontTableTag tags[]) const override;
     size_t onGetTableData(SkFontTableTag, size_t offset, size_t length, void* data) const override;
+    void* onGetUserTableData(SkFontTableTag) const override;
     sk_sp<SkData> onCopyTableData(SkFontTableTag) const override;
     std::unique_ptr<SkScalerContext> onCreateScalerContext(const SkScalerContextEffects&,
                                                            const SkDescriptor*) const override;

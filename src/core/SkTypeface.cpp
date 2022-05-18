@@ -260,6 +260,10 @@ size_t SkTypeface::getTableData(SkFontTableTag tag, size_t offset, size_t length
     return this->onGetTableData(tag, offset, length, data);
 }
 
+void* SkTypeface::getUserData(SkFontTableTag tag) {
+    return this->onGetUserTableData(tag);
+}
+
 sk_sp<SkData> SkTypeface::copyTableData(SkFontTableTag tag) const {
     return this->onCopyTableData(tag);
 }

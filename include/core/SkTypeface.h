@@ -236,6 +236,11 @@ public:
                         void* data) const;
 
     /**
+     *   直接使用CTFontCopyTable获得的数据，不进行内存拷贝
+     */
+    void* getUserData(SkFontTableTag tag);
+
+    /**
      *  Return an immutable copy of the requested font table, or nullptr if that table was
      *  not found. This can sometimes be faster than calling getTableData() twice: once to find
      *  the length, and then again to copy the data.
@@ -405,6 +410,7 @@ protected:
     virtual int onGetTableTags(SkFontTableTag tags[]) const = 0;
     virtual size_t onGetTableData(SkFontTableTag, size_t offset,
                                   size_t length, void* data) const = 0;
+    virtual void* onGetUserTableData(SkFontTableTag) const { return nullptr; }
     virtual sk_sp<SkData> onCopyTableData(SkFontTableTag) const;
 
     virtual bool onComputeBounds(SkRect*) const;
